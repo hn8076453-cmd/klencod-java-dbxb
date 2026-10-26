@@ -9,8 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,16 +37,46 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        
+        // بناء الواجهة برمجياً (لتجنب أخطاء R.layout)
+        LinearLayout rootLayout = new LinearLayout(this);
+        rootLayout.setOrientation(LinearLayout.VERTICAL);
+        rootLayout.setPadding(32, 32, 32, 32);
 
-        tvResult = findViewById(R.id.tvResult);
-        btnCopy = findViewById(R.id.btnCopy);
-        Button btnPick = findViewById(R.id.btnPick);
+        TextView title = new TextView(this);
+        title.setText("🔓 HC Decryptor\nاختر ملف .hc لفك تشفيره");
+        title.setTextSize(18);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(0, 0, 0, 30);
+        rootLayout.addView(title);
+
+        Button btnPick = new Button(this);
+        btnPick.setText("📂 اختر ملف .hc");
+        rootLayout.addView(btnPick);
+
+        ScrollView scrollView = new ScrollView(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0, 1.0f);
+        params.setMargins(0, 30, 0, 30);
+        scrollView.setLayoutParams(params);
+
+        tvResult = new TextView(this);
+        tvResult.setText("لم يتم اختيار ملف بعد...");
+        tvResult.setTextIsSelectable(true);
+        tvResult.setPadding(16, 16, 16, 16);
+        scrollView.addView(tvResult);
+        rootLayout.addView(scrollView);
+
+        btnCopy = new Button(this);
+        btnCopy.setText("📋 نسخ النتيجة");
+        btnCopy.setEnabled(false);
+        rootLayout.addView(btnCopy);
+
+        setContentView(rootLayout);
 
         btnPick.setOnClickListener(v -> pickFile());
         btnCopy.setOnClickListener(v -> copyResult());
 
-        // استقبال الملف إذا أُرسل من تطبيق آخر
         Intent intent = getIntent();
         if (intent != null) handleIntent(intent);
     }

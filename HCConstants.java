@@ -1,4 +1,4 @@
-package shshsb.sbssbab.db;
+package shshsb.sbssbab;
 
 import java.util.HashMap;
 import java.util.Map;

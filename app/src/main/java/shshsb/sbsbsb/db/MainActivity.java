@@ -1,4 +1,4 @@
-package shshsb.sbssbab. db;
+package shshsb.sbssbab. double;
 
 import android.app.Activity;
 import android.content.ClipData;

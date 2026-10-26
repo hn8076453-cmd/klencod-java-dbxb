@@ -1,4 +1,4 @@
-package shshsb.sbssbab.db;
+package shshsb.sbsbsbdb;
 
 import org.json.JSONObject;
 

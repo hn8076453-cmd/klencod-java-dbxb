@@ -1,4 +1,4 @@
-package shshsb.sbssbab.db;
+package shshsb.sbssbab;
 
 import org.bouncycastle.crypto.engines.ChaCha7539Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
